@@ -52,7 +52,7 @@ const model = posts.map(p => {
         id: p.slug,
         title: p.title,
         slug: p.slug,
-        url: '%ROOT%notes/' + p.slug + '/',
+        url: '%ROOT%findings/' + p.slug + '/',
         excerpt: p.excerpt,
         custom_excerpt: p.excerpt,
         html: p.html,
@@ -112,7 +112,7 @@ hbs.registerHelper({
     },
     reading_time: function () { return this.reading_time || ''; },
     url: function () { return this.url || '%ROOTNS%'; },
-    page_url: function (n) { return n === 1 ? '%ROOT%notes/' : '%ROOT%notes/page/' + n + '/'; },
+    page_url: function (n) { return n === 1 ? '%ROOT%findings/' : '%ROOT%findings/page/' + n + '/'; },
     content: function () { return S(this.html || ''); },
     comments: () => '',
     date: function (value, options) {
@@ -262,23 +262,23 @@ written.push(write('index.html',
 const pageCount = Math.max(1, Math.ceil(model.length / PER_PAGE));
 for (let n = 1; n <= pageCount; n++) {
     const slice = model.slice((n - 1) * PER_PAGE, n * PER_PAGE);
-    const rel = n === 1 ? 'notes/index.html' : 'notes/page/' + n + '/index.html';
+    const rel = n === 1 ? 'findings/index.html' : 'findings/page/' + n + '/index.html';
     written.push(write(rel, render('index.hbs',
         {posts: slice, pagination: paginate(model.length, n)},
-        'paged-template', custom.section_label + ' — ' + site.title, 'notes/')));
+        'paged-template', custom.section_label + ' — ' + site.title, 'findings/')));
 }
 
 // posts
 model.forEach(post => {
-    written.push(write('notes/' + post.slug + '/index.html',
-        render('post.hbs', {post, posts: model}, 'post-template', post.title + ' — ' + site.title, 'notes/')));
+    written.push(write('findings/' + post.slug + '/index.html',
+        render('post.hbs', {post, posts: model}, 'post-template', post.title + ' — ' + site.title, 'findings/')));
 });
 
 // tag archives
 tags.forEach(tag => {
     written.push(write('tag/' + tag.slug + '/index.html',
         render('tag.hbs', {tag, posts: tag.posts, pagination: paginate(tag.posts.length, 1)},
-            'tag-template', tag.name + ' — ' + site.title, 'notes/')));
+            'tag-template', tag.name + ' — ' + site.title, 'findings/')));
 });
 
 // static pages
@@ -330,7 +330,7 @@ const feed = `<?xml version="1.0" encoding="UTF-8"?>
 <link>${ABSOLUTE_BASE}</link>
 ${model.map(p => `<item>
 <title>${esc(p.title)}</title>
-<link>${ABSOLUTE_BASE}notes/${p.slug}/</link>
+<link>${ABSOLUTE_BASE}findings/${p.slug}/</link>
 <guid isPermaLink="false">${p.slug}</guid>
 <pubDate>${new Date(p.published_at + 'T12:00:00Z').toUTCString()}</pubDate>
 <description>${esc(p.excerpt)}</description>

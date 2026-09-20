@@ -1,328 +1,254 @@
 /* Content for the static render. The Ghost theme is the source of truth for
-   markup; this file stands in for the Ghost database. */
+   markup; this file stands in for the Ghost database.
+
+   Voice, shapes, shelves and headline patterns follow the house style guide. */
 
 const site = {
     title: 'Not Your A.I. Overlords',
-    description: 'A warm dispatch from the workbench: engineering, digital craft, and the strange small experiments that make a system sing.',
+    description: 'Deeply serious investigations of questions that do not matter.',
     locale: 'en',
     logo: null,
     members_enabled: true,
 };
 
 const custom = {
-    eyebrow: 'Field notes on making systems feel human',
+    eyebrow: 'Rigorous answers to questions nobody asked',
     portrait: 'images/portrait.jpg',
     byline_mark: null,
-    byline_text: 'Saurabh Batra · Engineer / maker',
-    lead_label: 'The lead experiment',
-    section_label: 'Recent experiments',
+    byline_text: 'Saurabh Batra · Engineer, occasional test subject',
+    lead_label: 'The current investigation',
+    section_label: 'Recent findings',
     show_card_images: false,
     newsletter_eyebrow: 'Correspondence / once a month',
-    newsletter_heading: 'A note from the workbench.',
-    newsletter_body: 'No growth loops. Just an occasional bundle of observations, diagrams, and unfinished thoughts.',
+    newsletter_heading: 'One finding a month, at most.',
+    newsletter_body: 'No growth loops. Just an occasional bundle of observations, charts, and things that turned out not to be true.',
     footer_note: 'Made slowly in London',
 };
 
-const author = {name: 'Saurabh Batra', slug: 'saurabh', bio: 'Engineer, maker, and habitual re-reader of his own commit messages.'};
+const author = {name: 'Saurabh Batra', slug: 'saurabh', bio: 'Engineer. Runs the experiments, and is usually also the sample.'};
+
+/* The chart in the lead investigation — house style: every point shown (n=7),
+   one annotation carrying the joke, direct labels, n stated in the caption. */
+const readingChart = `<figure class="chart">
+<div class="chart__plot">
+<svg viewBox="0 0 720 330" role="img" aria-label="Days spent on each of seven books about indecisiveness. Range: 3 to 19 days.">
+  <g class="chart__grid">
+    <line x1="210" y1="28" x2="210" y2="292"></line>
+    <line x1="330" y1="28" x2="330" y2="292"></line>
+    <line x1="450" y1="28" x2="450" y2="292"></line>
+    <line x1="570" y1="28" x2="570" y2="292"></line>
+    <line x1="690" y1="28" x2="690" y2="292"></line>
+  </g>
+  <g class="chart__axis">
+    <text x="210" y="312" text-anchor="middle">0</text>
+    <text x="330" y="312" text-anchor="middle">5</text>
+    <text x="450" y="312" text-anchor="middle">10</text>
+    <text x="570" y="312" text-anchor="middle">15</text>
+    <text x="690" y="312" text-anchor="middle">20 days</text>
+  </g>
+  <g class="chart__rows">
+    <g><text class="chart__label" x="196" y="50">The Paradox of Choice</text>
+       <line class="chart__stem" x1="210" y1="46" x2="354" y2="46"></line>
+       <circle class="chart__dot" cx="354" cy="46" r="5"></circle>
+       <text class="chart__value" x="368" y="50">6</text></g>
+    <g><text class="chart__label" x="196" y="86">Thinking, Fast and Slow</text>
+       <line class="chart__stem" x1="210" y1="82" x2="666" y2="82"></line>
+       <circle class="chart__dot" cx="666" cy="82" r="5"></circle>
+       <text class="chart__value" x="680" y="86">19</text></g>
+    <g><text class="chart__label" x="196" y="122">Decisive</text>
+       <line class="chart__stem" x1="210" y1="118" x2="306" y2="118"></line>
+       <circle class="chart__dot" cx="306" cy="118" r="5"></circle>
+       <text class="chart__value" x="320" y="122">4</text></g>
+    <g><text class="chart__label" x="196" y="158">How to Decide</text>
+       <line class="chart__stem" x1="210" y1="154" x2="282" y2="154"></line>
+       <circle class="chart__dot" cx="282" cy="154" r="5"></circle>
+       <text class="chart__value" x="296" y="158">3</text>
+       <text class="chart__note" x="330" y="158">the shortest book says decide immediately</text></g>
+    <g><text class="chart__label" x="196" y="194">The Art of Thinking Clearly</text>
+       <line class="chart__stem" x1="210" y1="190" x2="474" y2="190"></line>
+       <circle class="chart__dot" cx="474" cy="190" r="5"></circle>
+       <text class="chart__value" x="488" y="194">11</text></g>
+    <g><text class="chart__label" x="196" y="230">Algorithms to Live By</text>
+       <line class="chart__stem" x1="210" y1="226" x2="402" y2="226"></line>
+       <circle class="chart__dot" cx="402" cy="226" r="5"></circle>
+       <text class="chart__value" x="416" y="230">8</text></g>
+    <g><text class="chart__label" x="196" y="266">Wait</text>
+       <line class="chart__stem" x1="210" y1="262" x2="546" y2="262"></line>
+       <circle class="chart__dot" cx="546" cy="262" r="5"></circle>
+       <text class="chart__value" x="560" y="266">14</text></g>
+  </g>
+  <line class="chart__baseline" x1="210" y1="292" x2="690" y2="292"></line>
+</svg>
+</div>
+<figcaption>n=7 books. Days between opening and finishing each one. Source: my own reading log, which I keep for reasons I have never examined.</figcaption>
+</figure>`;
 
 const posts = [
     {
-        slug: 'friction-in-the-machine',
-        title: 'The case for leaving a little friction in the machine',
-        tag: 'Systems',
-        tags: ['Systems', 'Craft'],
-        date: '2026-09-02',
-        excerpt: 'Perfectly smooth interfaces often erase the evidence of care. A note on designing tools that reveal their joinery, invite curiosity, and give their users something honest to hold onto.',
-        html: `<p>There is a particular kind of software that feels like a hotel lobby. Everything glides. Nothing squeaks. And you cannot tell, standing in the middle of it, whether anyone actually lives there.</p>
+        slug: 'seven-books-about-indecisiveness',
+        title: 'Reading seven books about indecisiveness is a fairly elegant way to keep not deciding',
+        tag: 'Investigations',
+        tags: ['Investigations'],
+        date: '2026-09-16',
+        excerpt: 'n=7 books, 65 days, 2,310 pages, and one decision still unmade.',
+        html: `<p>There is a decision I have been not making since February. I am not going to tell you what it is, because the shape of it is irrelevant and because describing it would constitute, in a small way, progress.</p>
 
-<p>We built a decade of interface craft on the premise that friction is waste — that every extra click is a tax on the user, and the ideal tool is the one that disappears entirely. Mostly that was right. But somewhere in the sanding, we started removing a second thing along with the friction: the evidence that the machine was doing anything at all.</p>
+<p>In March I bought a book about how to make decisions. By August I had bought six more.</p>
 
-<h2>Friction is not the same as effort</h2>
+<h2>What I actually measured</h2>
 
-<p>The confusion is worth naming precisely. <strong>Effort</strong> is what the user has to spend to get what they came for. <strong>Friction</strong> is the texture they feel while spending it. You want less effort. You do not always want less texture.</p>
+<p>Seven books, each bought specifically to resolve one outstanding decision. For each I logged the purchase date, the date I opened it, the date I finished it, the page count, and whether the decision had been made at any point during or after.</p>
 
-<p>A heavy door with a well-weighted closer takes the same effort as a flimsy one and communicates something entirely different. So does a save operation that takes 400ms and says what it saved, versus one that takes 40ms and says nothing.</p>
+<p>That last column contains seven identical values.</p>
 
-<blockquote>A tool that shows its seams is asking you to trust it for reasons, not on faith.</blockquote>
+${readingChart}
 
-<h2>Where the seams went</h2>
+<p>The books took between three and nineteen days. The three-day book, <em>How to Decide</em>, is the one that most forcefully recommends deciding immediately. I read it fourth.</p>
 
-<p>Watch a modern deploy pipeline from the outside. A spinner appears. Some time passes — thirty seconds, or eleven minutes. The spinner resolves to a checkmark. At no point were you told what was happening, which of the nine steps you were on, or what would happen if you closed the tab.</p>
+<h2>What I think it means</h2>
 
-<p>The spinner is not a progress indicator. It is a promise that someone, somewhere, is still holding the rope. When the rope goes slack, the spinner keeps spinning.</p>
+<p>The honest reading is that buying a book about a decision is a way of doing something that feels adjacent to the decision while remaining, in every measurable sense, entirely outside it.</p>
 
-<h3>Three places to put the texture back</h3>
+<blockquote>Research is the only form of procrastination that produces a receipt.</blockquote>
 
-<ul>
-<li><strong>Name the operation, not the state.</strong> "Rebuilding the search index (3 of 9)" costs the same pixels as "Loading…" and buys enormously more.</li>
-<li><strong>Show the cost before the click.</strong> If the button starts something expensive, irreversible, or slow, let the label say so. <code>Delete 1,204 records</code> is a better button than <code>Delete</code>.</li>
-<li><strong>Leave the undo visible before it is needed.</strong> An undo you have to go looking for is a confession, not a feature.</li>
-</ul>
+<p>Each book had a framework. Six of the seven frameworks required, as a first step, writing down the options. I have written down the options nine times across four notebooks. The lists are substantially identical. One of them is laminated.</p>
 
-<h2>A small test</h2>
-
-<p>Hand the thing to someone who has never seen it. Ask them to narrate, out loud, what they believe it is doing. Do not correct them.</p>
-
-<p>Every place they go quiet is a seam you sanded off too far. Every place they guess wrong is a seam you hid behind the wrong word. The goal is not a user who is never confused — it is a user whose confusion is <em>about the problem</em>, and not about your machine.</p>`,
-    },
-    {
-        slug: 'soft-edges-hard-constraints',
-        title: 'Soft edges, hard constraints',
-        tag: 'Systems',
-        tags: ['Systems', 'Craft'],
-        date: '2026-08-19',
-        excerpt: 'What crochet taught me about architectural boundaries — and why the stitch you can pull out is worth more than the one you cannot.',
-        html: `<p>I learned more about system boundaries from a half-finished crocheted hexagon than from any architecture review I have sat in.</p>
-
-<p>Here is the thing about crochet: it is a single continuous thread, looped through itself. There is no glue. If you pull the working end, the whole thing comes apart in reverse order, stitch by stitch, back to exactly the state it was in at any earlier moment. The structure is entirely made of its own undoing.</p>
-
-<h2>Two kinds of edges</h2>
-
-<p>A crocheted piece has a <strong>soft edge</strong> — the live loops at the working end, where the next row attaches — and a <strong>hard edge</strong>, the finished border you have woven in and cut. The soft edge is where growth happens. The hard edge is a decision you have made permanent, and it is deliberately, physically harder to reverse.</p>
-
-<p>Systems have both, and most of our trouble comes from confusing which is which.</p>
-
-<blockquote>A boundary is not a wall. It is a declaration about which direction change is cheap in.</blockquote>
-
-<h3>Internal module seams are soft</h3>
-
-<p>Rename them. Move them. Collapse two into one when the distinction stops earning its keep. If reversing a decision costs you a rebuild and a code review, it is soft, and you should treat it as a place to be generous and provisional.</p>
-
-<h3>Anything with a consumer is hard</h3>
-
-<p>A public API, a database column other services read, an event shape on a queue, a URL someone bookmarked. The moment a second party depends on the shape, you have woven in the end and cut the thread. Changing it now means finding every consumer, which means finding every consumer you <em>forgot about</em>.</p>
-
-<h2>The mistake I keep making</h2>
-
-<p>I harden edges too early. It feels responsible — the versioned endpoint, the formal schema, the deprecation policy — on something three people have used twice. All of that machinery is a bet that the shape is right. Making the bet before you have evidence just means you pay the interest on a loan you did not need.</p>
-
-<p>The crochet version of this mistake is weaving in your ends before the piece is the size you want. It looks tidy. It is a nightmare to extend.</p>
-
-<h2>The discipline</h2>
-
-<p>Before you firm something up, ask: <em>who would I have to call if this were wrong?</em></p>
+<h3>Confounds, of which there are several</h3>
 
 <ul>
-<li>Nobody — leave it soft, and stop building ceremony around it.</li>
-<li>A colleague — leave it soft, tell the colleague.</li>
-<li>Someone outside the room — now harden it, and mean it.</li>
+<li><strong>The decision may be genuinely hard.</strong> Nothing here separates avoidance from difficulty, and a reader who wanted to be kind to me would point that out.</li>
+<li><strong>Reading time is not deciding time.</strong> I could have been deciding on the train. I was not, but I could have been.</li>
+<li><strong>n=7</strong>, one subject, no control, and the subject knew what was being measured throughout. This is the weakest possible design and it still found something.</li>
 </ul>
 
-<p>Most boundaries in most systems fall in the first category and are dressed as the third. That dressing is not free. It is the reason your codebase feels heavier than the problem it solves.</p>`,
+<h2>The part I did not enjoy</h2>
+
+<p>Somewhere around book five I started noticing that I was choosing the next book carefully. Comparing editions. Reading reviews of books about how to stop reading reviews.</p>
+
+<p>The decision remains unmade. There is an eighth book in a tab I have not closed.<sup>1</sup></p>
+
+<p class="footnote"><sup>1</sup> It is about overthinking. It has 384 pages.</p>`,
     },
     {
-        slug: 'make-the-tool-show-its-seams',
-        title: 'Make the tool show its seams',
-        tag: 'Fieldwork',
-        tags: ['Fieldwork', 'Craft'],
-        date: '2026-08-04',
-        excerpt: 'A field guide for legible interfaces and generous defaults — written after a week of watching people use something I built and saying nothing.',
-        html: `<p>I spent a week sitting behind people using a tool I had built, with a rule: I was not allowed to speak. Not to explain, not to nudge, not to say "ah, that button is actually —". Just watch.</p>
+        slug: 'workout-music-nine-people',
+        title: 'Nine people, three genres, and no effect on anything I could measure',
+        tag: 'Guinea Pig',
+        tags: ['Guinea Pig'],
+        date: '2026-08-28',
+        excerpt: 'n=9, three genres, 27 treadmill sessions, one heart rate monitor that kept falling off.',
+        html: `<p>Everyone has a theory about what to listen to while exercising, and every theory is held with a confidence that the underlying evidence does not support. I decided to test mine on other people, which is the only ethical way to be wrong.</p>
 
-<p>It is the most uncomfortable and most useful week of engineering I have ever done.</p>
+<h2>Pre-registration</h2>
 
-<h2>What legibility actually means</h2>
+<p>Written before any data was collected, and reproduced here unedited, because a protocol you are allowed to revise afterwards is not a protocol.</p>
 
-<p>A legible interface is one where a person can construct a correct mental model of what is happening from the outside, without documentation, and without you in the room. Not a <em>complete</em> model. A correct one.</p>
+<blockquote><strong>Hypothesis.</strong> Tempo above 140bpm produces a measurably higher average heart rate during steady-state treadmill running than tempo below 100bpm.<br>
+<strong>Protocol.</strong> Nine volunteers, three sessions each, 20 minutes at self-selected pace. Genre assigned in rotating order. Heart rate sampled every 5 seconds.<br>
+<strong>Falsified if.</strong> Mean heart rate difference between the high and low tempo conditions is under 3bpm.</blockquote>
 
-<p>The bar is lower than it sounds and we clear it less often than we think. Legibility fails in three characteristic ways:</p>
+<h2>What happened</h2>
+
+<p>The mean difference was 1.4bpm. The hypothesis is falsified by the criterion I wrote down in advance, which is an annoying thing to have done to yourself.</p>
+
+<p>Self-selected pace turns out to be the entire story. People ran at the speed they were going to run at, and their hearts responded to the running rather than to the music. Two participants independently described the fast condition as "stressful" and then ran exactly as fast as before.</p>
+
+<h3>The monitor</h3>
+
+<p>The chest strap fell off four times across 27 sessions, always on the same participant, always during the third song. I have excluded those intervals and noted here that I have done so, rather than quietly trimming them, which was tempting.</p>
+
+<h2>What I would do differently</h2>
 
 <ul>
-<li><strong>Silent success.</strong> The thing worked and said nothing, so the user did it again. Now it has worked twice.</li>
-<li><strong>Ambiguous failure.</strong> Something went wrong and the message describes the symptom in the system's vocabulary, not the cause in the user's.</li>
-<li><strong>Invisible state.</strong> The tool is in a mode, and nothing on screen says which mode.</li>
+<li>Control pace, or stop pretending heart rate is the interesting variable. Perceived exertion was where the signal probably lives.</li>
+<li>More than three sessions each. With n=9 and three conditions, a 1.4bpm difference is indistinguishable from the monitor's own noise.</li>
+<li>Not tell participants what was being tested. Two of them tried to help.</li>
 </ul>
 
-<h2>Generous defaults</h2>
-
-<p>The other half of the guide. A generous default is one that is correct for the common case, obviously visible, and trivially overridable — in that order.</p>
-
-<p>Most defaults fail the second test. They are correct and invisible, which means the user cannot learn from them. A default that shows itself is a teaching tool: it demonstrates the shape of a good answer before the user knows what a good answer looks like.</p>
-
-<blockquote>Every default is a small opinion you are handing to someone at the exact moment they cannot evaluate it. Make it a kind one, and let them see it.</blockquote>
-
-<h3>The fill-in trick</h3>
-
-<p>Instead of a blank field with placeholder text, pre-fill the field with the default value, selected. The user sees a real answer, can accept it by moving on, and can replace it by typing. Three behaviours, no instructions.</p>
-
-<p>Compare with <code>placeholder="e.g. my-project"</code>, which is a hint dressed as a value, disappears the moment you engage with it, and is invisible to a screen reader at the moment it matters most.</p>
-
-<h2>What I changed</h2>
-
-<p>After that week: every destructive action names its target in the button. Every long operation names its current step. Every error message begins with what the user was trying to do, not what the system was doing when it gave up.</p>
-
-<p>None of it was clever. All of it came from sitting on my hands and watching someone be quietly, politely lost.</p>`,
+<p>The data is in the linked sheet. If you find something in it that I missed, I would genuinely like to know, and I will say so here.</p>`,
     },
     {
-        slug: 'the-fifteen-minute-repair',
-        title: 'The fifteen-minute repair',
-        tag: 'Practice',
-        tags: ['Practice'],
-        date: '2026-07-21',
-        excerpt: 'A small ritual for rescuing projects before they calcify: fifteen minutes, one irritation, no permission required.',
-        html: `<p>Every project I have abandoned died the same way. Not in a crisis — in an accumulation. A hundred small irritations, each one individually too minor to justify stopping for, collectively forming a surface too rough to keep touching.</p>
+        slug: 'every-productivity-book-wake-up-earlier',
+        title: 'Every productivity book recommends waking up earlier, including the one about sleep',
+        tag: 'Corpus',
+        tags: ['Corpus'],
+        date: '2026-08-11',
+        excerpt: 'n=12 books, 41 distinct recommendations counted, 9 of them mutually exclusive.',
+        html: `<p>The plan was to read twelve productivity books and count what they actually tell you to do. Not to evaluate them — to tabulate them, the way you would tabulate anything that claims to be a system.</p>
 
-<p>The ritual that fixed this for me takes fifteen minutes and has exactly one rule.</p>
+<h2>Counting rules, fixed in advance</h2>
 
-<h2>The rule</h2>
+<p>A recommendation counted if it was stated imperatively and at least once outside a chapter summary. Anecdotes did not count. "Consider whether" did not count. This is stricter than it sounds and it removed about a third of what felt like advice while reading.</p>
 
-<p>At the start of a working session, before any real work: pick the irritation you noticed most recently, and fix it. Fifteen minutes. If it takes longer, stop and write it down instead.</p>
+<h2>The count</h2>
 
-<p>That is the whole practice. The constraint is doing the work, not the discipline.</p>
+<p>Forty-one distinct recommendations across twelve books. Eleven books recommend waking up earlier. The twelfth is about sleep, and recommends waking up earlier, on a consistent schedule, which is the same instruction wearing a lab coat.</p>
 
-<h3>Why fifteen minutes specifically</h3>
+<p>Nine pairs are mutually exclusive. Three books instruct you to batch your email; two instruct you to handle each message once, on arrival. Both positions are argued from first principles, and neither book acknowledges that the other exists.</p>
 
-<p>Long enough to fix a bad error message, delete a dead file, rename a confusing variable, or write the one-line comment explaining the thing you re-derive every time. Short enough that you never have to negotiate with yourself about whether you can afford it.</p>
+<blockquote>A genre in which every entry is a complete system, and no entry cites another, is not a field. It is a set of parallel universes with a shared cover designer.</blockquote>
 
-<p>The negotiation is the enemy. A twenty-minute budget invites an estimate; an estimate invites a deferral; a deferral is how a two-minute fix becomes a permanent feature of the landscape.</p>
+<h2>The verdicts</h2>
 
-<blockquote>The repairs you can justify are never the ones that are killing you. The ones killing you are each too small to justify.</blockquote>
+<p>Two of the twelve are worth your time, and both are worth it for the same reason: they are the only ones that state a condition under which their advice would not apply. Everything else is unfalsifiable, which is the genre's defining feature rather than an accident of any particular author.</p>
 
-<h2>What counts</h2>
-
-<ul>
-<li>Anything you have worked <em>around</em> more than twice.</li>
-<li>Anything that made you sigh in the last session.</li>
-<li>Any message, name, or log line that you mentally translate every time you read it.</li>
-<li>Any file you are slightly afraid to open.</li>
-</ul>
-
-<p>What does not count: refactors, redesigns, upgrades, and anything you would describe with the word "properly". Those are real work with real budgets. This is maintenance of the surface you touch.</p>
-
-<h2>The compounding part</h2>
-
-<p>After a few months the character of the project changes. Not because any single repair mattered, but because the ambient friction stopped rising. A codebase where the irritations get fixed at the rate they appear is a codebase that stays approachable indefinitely.</p>
-
-<p>And there is a second effect, quieter and more important: you stop learning to tolerate your own tools being bad. That tolerance is the actual thing that kills projects. It is remarkably easy to acquire and surprisingly hard to notice.</p>`,
+<p>The full table of forty-one recommendations, tagged by book and by whether anything contradicts it, is in the linked sheet.</p>`,
     },
     {
-        slug: 'notes-on-a-slower-deploy',
-        title: 'Notes on a slower deploy',
-        tag: 'Systems',
-        tags: ['Systems', 'Practice'],
-        date: '2026-07-02',
-        excerpt: 'We shipped less often on purpose for one quarter. What it did to the review culture was not what anyone predicted.',
-        html: `<p>For one quarter we deployed twice a week instead of roughly twelve times a day. This was not a philosophical position. Our staging environment had become unreliable in a way nobody had time to fix, and slowing down was the cheapest available mitigation.</p>
+        slug: 'logging-treadmill-sessions-without-an-api',
+        title: 'How to log 27 treadmill sessions when nothing involved has an API',
+        tag: 'Workbench',
+        tags: ['Workbench'],
+        date: '2026-07-24',
+        excerpt: 'Three vendor exports, one scraper, and a CSV with 41 columns, 38 of them empty.',
+        html: `<p>The music study needed heart rate data from nine people using four different devices. This is the part of the work that does not appear in the write-up, and it took longer than the study.</p>
 
-<p>The interesting part was not the deploys. It was what happened to how we reviewed each other's work.</p>
+<h2>What the vendors provide</h2>
 
-<h2>The prediction</h2>
+<p>Two of the four offer a CSV export, buried two levels into a settings page and rate-limited to one request per hour for no reason anyone could explain to me. One offers a PDF. One offers a screenshot feature.</p>
 
-<p>Everyone expected batching. Bigger changes per deploy, harder rollbacks, more fear. Some of that happened — our median diff roughly doubled, and two incidents took longer to attribute than they would have.</p>
+<p>The PDF was the interesting problem. It contains a chart image and no numbers, so the data exists only as pixels. I spent an evening writing something to read values off the rendered line before noticing that the same account's web dashboard fetches the underlying series as JSON to draw that chart, and that the endpoint is not authenticated beyond a session cookie.</p>
 
-<p>What nobody predicted was that review comments got <em>longer</em>, and substantively different in kind.</p>
+<h2>The shape of the mess</h2>
 
-<h2>What changed in review</h2>
+<p>Four devices, four sampling rates, three timestamp formats, and two different opinions about whether a dropped signal should be a null, a zero, or the previous value repeated. The last one matters enormously and is documented by none of them.</p>
 
-<p>With a twice-weekly train, a review is no longer a gate you are holding up. Under continuous deploy, every comment carries an implicit cost: the author is standing there, the change is ready, and anything you raise delays a thing that could already be live. That pressure quietly reshapes what people are willing to say.</p>
+<pre><code>device_a: 1Hz,  ISO-8601 UTC,     null on dropout
+device_b: 0.2Hz, epoch millis,     0 on dropout
+device_c: 1Hz,  local time, no TZ, last value held
+device_d: ?,    "14:32:07",        unclear</code></pre>
 
-<p>The comments that get suppressed are not the bug reports. Those feel urgent and legitimate. The suppressed ones are the design observations — <em>this reads like it wants to be two functions</em>, <em>I think this duplicates the thing in the importer</em> — which feel like opinions, and which you do not want to spend someone's afternoon on.</p>
+<p>Device C is the one that quietly lies. A held value looks exactly like a person with a very steady heart rate, and it is invisible unless you go looking for runs of identical samples. There were 340 such runs.</p>
 
-<blockquote>Speed does not eliminate the design conversation. It relocates it to a private feeling of unease that nobody writes down.</blockquote>
+<h2>What I would build next time</h2>
 
-<h3>The measurable bit</h3>
+<p>A single ingest step that normalises to one sample rate and one dropout convention before anything else touches the data, with the raw file kept untouched alongside. I did this halfway through, having already analysed a week of data that turned out to be four percent held values.</p>
 
-<p>We did not instrument this well, and I would not present it as evidence. But reading back through that quarter, comments containing the words "could", "wonder", and "instead" went up noticeably, and comments that were a single line with a fix suggestion went down.</p>
-
-<h2>What we kept</h2>
-
-<p>We went back to fast deploys — the staging fix landed, and the trade was not worth it overall. Waiting three days to see a change in front of users is its own corrosion.</p>
-
-<p>But we kept two things:</p>
-
-<ul>
-<li><strong>A weekly review with no deploy attached.</strong> One hour, one recent change, nobody blocked. It is the only place the design conversation reliably happens out loud.</li>
-<li><strong>The explicit non-blocking comment.</strong> A prefix — we use <code>nit:</code> and <code>musing:</code> — that means "I am saying this for the record and you may merge over it". Sounds trivial. It moved a whole category of thought from nobody's head into the repository.</li>
-</ul>
-
-<p>The lesson I take is not that slow is better. It is that deploy cadence is a social instrument, and we usually tune it as though it were only a technical one.</p>`,
+<p>The scraper and the normaliser are both in the repo. Neither is good.</p>`,
     },
     {
-        slug: 'the-index-that-lied',
-        title: 'The index that lied',
-        tag: 'Fieldwork',
-        tags: ['Fieldwork', 'Systems'],
-        date: '2026-06-11',
-        excerpt: 'A query planner, a stale histogram, and four hours of confusion — a debugging story with a moral about trusting the map over the territory.',
-        html: `<p>The query took eleven seconds. It had taken forty milliseconds the previous week. Nothing had been deployed. Nothing had been migrated. The table had grown by about four percent.</p>
+        slug: 'tabs-open-predicts-nothing',
+        title: 'The number of tabs I have open predicts nothing, including how many tabs I will open tomorrow',
+        tag: 'Nulls',
+        tags: ['Nulls'],
+        date: '2026-07-08',
+        excerpt: 'n=61 days, 14,000 samples, r=0.04 against every variable I had.',
+        html: `<p>I had a theory that open tab count was a leading indicator of something — stress, unfinished work, how scattered a day was going to be. It samples itself, it needs no discipline to collect, and it felt like it meant something.</p>
 
-<p>I want to walk through the four hours, because the shape of the confusion is more useful than the fix.</p>
+<h2>The protocol</h2>
 
-<h2>Hour one: suspecting the obvious</h2>
+<p>A background script sampled tab count every five minutes for 61 days. Against it: daily self-rated focus (1–5, recorded at 21:00), commits pushed, hours in meetings, and sleep duration from the same unreliable device as the music study.</p>
 
-<p>The query filtered on an indexed column. The index existed — I checked. The index was valid — I checked. So the problem must be elsewhere: lock contention, a noisy neighbour, a connection pool starved by something unrelated.</p>
+<h2>The result</h2>
 
-<p>I spent an hour in the wrong neighbourhood because I had confirmed the index <em>existed</em> and silently concluded the database was <em>using</em> it. Those are different facts, and only one of them was in evidence.</p>
+<p>Nothing. The largest absolute correlation with anything was 0.04, against meeting hours, which is noise. Tab count does not even autocorrelate meaningfully day to day — yesterday's count tells you almost nothing about today's.</p>
 
-<h2>Hour two: reading the plan</h2>
+<p>The one real pattern is a sawtooth with a period of about nine days, which corresponds exactly to how often I get annoyed enough to close everything.</p>
 
-<p>It was not using it. A sequential scan, plainly, in the first line of the plan.</p>
+<h2>Why this is here</h2>
 
-<p>This is the moment where you should stop and ask a specific question: <strong>why does the planner believe a scan is cheaper?</strong> The planner is not broken and is not being stubborn. It is doing arithmetic on numbers it has been given, and one of those numbers is wrong.</p>
+<p>Because a site that only publishes the studies that worked is describing a fictional process. This one cost 61 days of sampling and produced one sentence of finding, and the sentence is "no".</p>
 
-<blockquote>A query planner never surprises you. Its statistics do. The plan is a faithful rendering of a map that has stopped matching the ground.</blockquote>
-
-<h2>Hour three: the histogram</h2>
-
-<p>The column was a status field. Historically it held about forty percent <code>active</code> and sixty percent everything else — a filter on it was not selective, but the query also constrained a date range, and the combination was.</p>
-
-<p>Except a backfill three weeks earlier had shifted the distribution hard: <code>active</code> was now under two percent. The planner's statistics, sampled before the backfill and not refreshed since, still described the old world. In the old world, the index lookup would have returned a huge fraction of the table, and a scan genuinely is cheaper. The planner made a correct decision about a table that no longer existed.</p>
-
-<h2>Hour four: the fix, and the better fix</h2>
-
-<p>The fix was one command — re-analyse the table. Forty milliseconds returned immediately.</p>
-
-<p>The better fix took longer and mattered more:</p>
-
-<ul>
-<li>Any bulk write path now re-analyses the tables it touched, as part of the job, not as a cron job that might be behind.</li>
-<li>Our slow-query alert includes the plan, not just the duration. The plan was the answer the whole time and was four hours away from me by pure procedure.</li>
-</ul>
-
-<h2>The moral</h2>
-
-<p>When a system that was fast becomes slow with no change to the code, the data, or the hardware, the thing that changed is a <em>belief</em> the system holds about itself. Find the cache, the statistic, the memoised assumption. Something is confidently describing a world that has moved.</p>`,
-    },
-    {
-        slug: 'naming-things-twice',
-        title: 'Naming things twice',
-        tag: 'Practice',
-        tags: ['Practice', 'Craft'],
-        date: '2026-05-28',
-        excerpt: 'Why the second name is usually the right one, and the cheap ritual that gets you there without a committee.',
-        html: `<p>The first name you give a thing is a description of how you found it. The second name is a description of what it is. These are rarely the same, and we ship the first one far too often.</p>
-
-<h2>Where first names come from</h2>
-
-<p>You are in the middle of building. You need somewhere to put a piece of behaviour, so you name it after the circumstance that produced it: <code>handleLegacyImportEdgeCase</code>, <code>UserServiceHelper</code>, <code>processDataV2</code>. Each of these is an honest record of a moment. None of them describes a concept.</p>
-
-<p>First names are archaeology. They tell you about the dig, not the artefact.</p>
-
-<blockquote>If the name contains the word "handle", "process", "manage", or a version number, it is almost certainly a first name.</blockquote>
-
-<h2>The ritual</h2>
-
-<p>When the thing works — tests green, behaviour correct, before the review — read the name out loud and finish this sentence:</p>
-
-<p><em>"This is the thing that ______."</em></p>
-
-<p>Then ask whether the name is the blank. Usually it is not, and usually the blank is a better name. <code>handleLegacyImportEdgeCase</code> becomes <em>"this is the thing that fills in missing timezones for pre-2019 rows"</em>, which becomes <code>inferMissingTimezone</code>, which is a name that teaches its reader something.</p>
-
-<h3>The two-minute version for types</h3>
-
-<p>For a class or a data structure, the sentence is different: <em>"one of these represents ______."</em> If the answer contains the word "and", you have found two types wearing one coat, and the naming problem is downstream of a design problem.</p>
-
-<h2>Why not just get it right the first time</h2>
-
-<p>Because you cannot. At the moment of writing, you genuinely do not know what the thing is yet — you know what you needed. The concept only becomes visible once the behaviour is complete, which is precisely the moment we stop thinking about it and open a pull request.</p>
-
-<p>The ritual is cheap because it exploits that timing. You are already re-reading the code. You are already about to ask someone else to read it. Two minutes of naming, at the one moment you have the full picture, and before the name escapes into every call site in the repository.</p>
-
-<h2>On not doing this by committee</h2>
-
-<p>Naming discussions in review go badly because they arrive after the name has spread, which makes changing it a chore, which makes the discussion feel expensive, which makes everyone argue as though it were.</p>
-
-<p>Rename it yourself, quietly, before anyone else has to have an opinion. The second name is not a consensus artefact. It is just the one you could only see from the end.</p>`,
+<p>The sawtooth is somewhat interesting on its own and I am not going to investigate it, because that is how the last four months started.</p>`,
     },
 ];
 
@@ -330,40 +256,44 @@ const pages = [
     {
         slug: 'about',
         title: 'About',
-        excerpt: 'A workbench, a newsletter, and a standing suspicion of anything that calls itself effortless.',
-        html: `<p>This is a place for field notes about making software that people can actually see into.</p>
+        excerpt: 'A workbench, a newsletter, and a standing refusal to pick an important subject.',
+        html: `<p>This is a site about investigating things that do not matter, using methods that do.</p>
 
-<p>I am an engineer. I spend most of my working life on systems — the parts that are supposed to be invisible, and the parts that become extremely visible at 3am. I also make things with my hands, which turns out to be the single most useful source of engineering metaphors I have found.</p>
+<p>The premise is narrow on purpose. Take a question nobody needs answered — what you should listen to while running, how many books about indecisiveness one person can buy — and then answer it properly. State the sample size. Publish the data. Name the confounds before someone else does.</p>
 
-<h2>What you will find here</h2>
+<p>The comedy, if there is any, comes entirely from the gap between the seriousness of the method and the triviality of the question. Nothing here is a parody of research. The method is real; only the subject is silly.</p>
 
-<p>Essays, mostly short, about three recurring subjects:</p>
+<h2>The shelves</h2>
 
 <ul>
-<li><strong>Systems</strong> — boundaries, failure, the slow accumulation of assumptions that eventually becomes a incident report.</li>
-<li><strong>Fieldwork</strong> — debugging stories told at full length, including the hours spent in the wrong place.</li>
-<li><strong>Practice</strong> — small rituals that keep the work approachable.</li>
+<li><strong>Investigations</strong> — the flagship pieces. A stupid question, a real dataset, an honest answer.</li>
+<li><strong>Guinea Pig</strong> — self-experiments and protocols, pre-registered, usually on me.</li>
+<li><strong>Corpus</strong> — books and papers read as data rather than reviewed.</li>
+<li><strong>Workbench</strong> — how the measuring actually happened, including the parts that broke.</li>
+<li><strong>Nulls</strong> — findings that were not. Published anyway, which is the whole point.</li>
 </ul>
 
 <h2>The name</h2>
 
-<p>It is a joke about a genre. The prevailing story about machines is that they are either coming to save us or coming to replace us, and both versions place the machine at the centre of the sentence. I find the more interesting sentence has a person in it, building something, making choices about what the machine should be allowed to hide.</p>
+<p>It started as a joke about a genre. The prevailing story about machines is that they are either coming to save us or coming to replace us, and both versions put the machine at the centre of the sentence.</p>
 
-<blockquote>Not your A.I. overlords. Just tools, made by people, with the seams left showing.</blockquote>
+<blockquote>Not your A.I. overlords. Just a person, some data, and a question that did not need asking.</blockquote>
 
-<h2>Elsewhere</h2>
+<h2>Honesty notes</h2>
 
-<p>There is a newsletter — roughly monthly, no growth loops, unsubscribe link at the top where it belongs. The signup is at the bottom of every page.</p>`,
+<p>Every number on this site is real or is labelled in the same sentence as invented. The illustrations are generated with Midjourney and are disclosed as such. The writing is mine, which given the name seems like the minimum.</p>
+
+<p>There is a newsletter, roughly monthly. No growth loops.</p>`,
     },
 ];
 
 const navigation = [
-    {label: 'Field notes', url: 'notes/'},
+    {label: 'Findings', url: 'findings/'},
     {label: 'About', url: 'about/'},
 ];
 
 const secondaryNavigation = [
-    {label: 'Archive', url: 'notes/'},
+    {label: 'Archive', url: 'findings/'},
 ];
 
 module.exports = {site, custom, author, posts, pages, navigation, secondaryNavigation};
