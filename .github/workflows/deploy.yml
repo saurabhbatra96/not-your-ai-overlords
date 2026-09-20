@@ -29,6 +29,9 @@ jobs:
           cache: npm
           cache-dependency-path: static/package-lock.json
 
+      - name: Install ImageMagick
+        run: sudo apt-get install -y --no-install-recommends imagemagick
+
       - name: Render the Ghost theme to static HTML
         working-directory: static
         run: |

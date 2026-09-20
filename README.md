@@ -33,8 +33,16 @@ publishes `site/` to GitHub Pages.
 - **Design** — edit the theme itself (`not-your-ai-overlords/assets/css/screen.css`
   and the `.hbs` files) and re-run the build. Changes flow through to both the
   preview and the real Ghost theme.
-- **Hero portrait** — not wired up yet. Drop an image at `static/images/portrait.png`
-  and set `custom.portrait = 'images/portrait.png'` in `static/content.js`.
+- **Images** — anything in `static/images/` is copied to the site, and a
+  resized variant is generated for each width in the theme's `image_sizes`
+  (`portrait-s.jpg`, `portrait-m.jpg`, …), so `{{img_url ... size="m"}}` and
+  the `srcset`s resolve the way they do in Ghost. Needs ImageMagick locally;
+  without it the build warns and serves the original unresized.
+- **Hero portrait** — `static/images/portrait.jpg`, set as `custom.portrait`
+  in `static/content.js`. It is a 1200px copy of `ai overlord.JPG`; the 1620px
+  original lives in the (gitignored) `inspiration-images/`. In Ghost this is a
+  `portrait` theme setting, so upload the original there rather than shipping
+  it in the theme.
 
 ## What the static build fakes
 

@@ -11,7 +11,7 @@ const site = {
 
 const custom = {
     eyebrow: 'Field notes on making systems feel human',
-    portrait: null,
+    portrait: 'images/portrait.jpg',
     byline_mark: null,
     byline_text: 'Saurabh Batra · Engineer / maker',
     lead_label: 'The lead experiment',

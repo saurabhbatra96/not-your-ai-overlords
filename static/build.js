@@ -104,7 +104,12 @@ hbs.registerHelper({
     ghost_foot: () => S(''),
     body_class: function () { return this.bodyClass || ''; },
     meta_title: function () { return this.metaTitle || site.title; },
-    img_url: u => (typeof u === 'string' && u ? S(u.startsWith('http') ? u : '%ROOT%' + u) : ''),
+    img_url: function (value, options) {
+        if (typeof value !== 'string' || !value) return '';
+        if (/^https?:/.test(value)) return S(value);
+        const size = options && options.hash && options.hash.size;
+        return S('%ROOT%' + (imageVariant(value, size) || value));
+    },
     reading_time: function () { return this.reading_time || ''; },
     url: function () { return this.url || '%ROOTNS%'; },
     page_url: function (n) { return n === 1 ? '%ROOT%notes/' : '%ROOT%notes/page/' + n + '/'; },
@@ -160,6 +165,53 @@ hbs.registerHelper({
     },
 });
 
+// --- images ---------------------------------------------------------------
+/* Ghost resizes images on demand; here the variants named by the theme's
+   image_sizes are generated once, at build time, with ImageMagick. */
+const {execFileSync} = require('child_process');
+const IMAGE_SIZES = themePkg.config.image_sizes || {};
+const variants = new Map();   // 'images/portrait.jpg' -> {m: 'images/portrait-m.jpg', ...}
+
+function imageVariant(rel, size) {
+    const set = variants.get(rel);
+    if (!set) return null;
+    return set[size] || set.original;
+}
+
+function buildImages() {
+    const src = path.join(__dirname, 'images');
+    if (!fs.existsSync(src)) return;
+    const dest = path.join(OUT, 'images');
+    fs.mkdirSync(dest, {recursive: true});
+
+    fs.readdirSync(src).filter(n => /\.(jpe?g|png|webp)$/i.test(n)).forEach(name => {
+        const from = path.join(src, name);
+        const ext = path.extname(name);
+        const base = path.basename(name, ext);
+        const rel = 'images/' + name;
+        const set = {original: rel};
+        fs.copyFileSync(from, path.join(dest, name));
+
+        let srcWidth = Infinity;
+        try {
+            srcWidth = parseInt(execFileSync('identify', ['-format', '%w', from], {encoding: 'utf8'}), 10);
+        } catch (err) {
+            console.warn('  ! identify unavailable; serving ' + name + ' unresized');
+            variants.set(rel, set);
+            return;
+        }
+
+        Object.entries(IMAGE_SIZES).forEach(([key, {width}]) => {
+            if (width >= srcWidth) { set[key] = rel; return; }
+            const out = 'images/' + base + '-' + key + ext;
+            execFileSync('convert', [from, '-resize', width + 'x', '-strip', '-quality', '82',
+                path.join(OUT, out)]);
+            set[key] = out;
+        });
+        variants.set(rel, set);
+    });
+}
+
 // --- render ---------------------------------------------------------------
 const PREVIEW_SCRIPT = '<script src="%ROOT%assets/js/static-preview.js" defer></script>';
 
@@ -198,6 +250,7 @@ function paginate(total, page) {
 // clean output
 fs.rmSync(OUT, {recursive: true, force: true});
 fs.mkdirSync(OUT, {recursive: true});
+buildImages();
 
 const written = [];
 
@@ -250,7 +303,7 @@ function copyDir(from, to) {
     });
 }
 copyDir(path.join(THEME, 'assets'), path.join(OUT, 'assets'));
-if (fs.existsSync(path.join(__dirname, 'images'))) copyDir(path.join(__dirname, 'images'), path.join(OUT, 'images'));
+
 
 // static-preview shim: the newsletter form has no backend here.
 fs.writeFileSync(path.join(OUT, 'assets/js/static-preview.js'),
