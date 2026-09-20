@@ -1,0 +1,28 @@
+{{!< default}}
+
+<div class="wrap">
+    {{> hero}}
+
+    {{#foreach posts limit="1"}}
+        {{> lead-post}}
+    {{/foreach}}
+
+    {{#if posts.[1]}}
+        <section class="collection" aria-labelledby="collection-heading">
+            <div class="collection__head">
+                <h2 class="collection__title" id="collection-heading">{{@custom.section_label}}</h2>
+                <p class="collection__count">
+                    {{plural pagination.total empty="No notes" singular="% note" plural="% notes"}} / {{date format="MMMM YYYY"}}
+                </p>
+            </div>
+
+            <div class="grid">
+                {{#foreach posts from="2"}}
+                    {{> post-card}}
+                {{/foreach}}
+            </div>
+        </section>
+    {{/if}}
+
+    {{pagination}}
+</div>

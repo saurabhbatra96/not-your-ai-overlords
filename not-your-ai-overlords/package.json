@@ -1,0 +1,96 @@
+{
+    "name": "not-your-ai-overlords",
+    "description": "Field notes on making systems feel human \u2014 a warm, high-contrast editorial theme for Ghost.",
+    "demo": "https://notyouraioverlords.com",
+    "version": "1.0.0",
+    "engines": {
+        "ghost": ">=5.0.0"
+    },
+    "license": "MIT",
+    "author": {
+        "name": "Saurabh Batra",
+        "email": "saurabh.batra96@gmail.com"
+    },
+    "keywords": [
+        "ghost-theme",
+        "theme",
+        "editorial",
+        "dark",
+        "newsletter"
+    ],
+    "config": {
+        "posts_per_page": 13,
+        "image_sizes": {
+            "xxs": {
+                "width": 30
+            },
+            "xs": {
+                "width": 100
+            },
+            "s": {
+                "width": 300
+            },
+            "m": {
+                "width": 600
+            },
+            "l": {
+                "width": 1000
+            },
+            "xl": {
+                "width": 2000
+            }
+        },
+        "card_assets": true,
+        "custom": {
+            "eyebrow": {
+                "type": "text",
+                "default": "Field notes on making systems feel human",
+                "group": "homepage"
+            },
+            "portrait": {
+                "type": "image",
+                "group": "homepage"
+            },
+            "byline_mark": {
+                "type": "image",
+                "group": "homepage"
+            },
+            "byline_text": {
+                "type": "text",
+                "default": "Saurabh Batra \u00b7 Engineer / maker",
+                "group": "homepage"
+            },
+            "lead_label": {
+                "type": "text",
+                "default": "The lead experiment",
+                "group": "homepage"
+            },
+            "section_label": {
+                "type": "text",
+                "default": "Recent experiments",
+                "group": "homepage"
+            },
+            "show_card_images": {
+                "type": "boolean",
+                "default": false,
+                "group": "homepage"
+            },
+            "newsletter_eyebrow": {
+                "type": "text",
+                "default": "Correspondence / once a month"
+            },
+            "newsletter_heading": {
+                "type": "text",
+                "default": "A note from the workbench."
+            },
+            "newsletter_body": {
+                "type": "text",
+                "default": "No growth loops. Just an occasional bundle of observations, diagrams, and unfinished thoughts."
+            },
+            "footer_note": {
+                "type": "text",
+                "default": "Made slowly in London"
+            }
+        }
+    }
+}

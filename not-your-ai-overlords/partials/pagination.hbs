@@ -1,0 +1,17 @@
+{{#if pages}}
+<nav class="pagination" role="navigation" aria-label="Pagination">
+    {{#if prev}}
+        <a class="pagination__link pagination__link--prev" href="{{page_url prev}}">{{> "icons/arrow"}}<span>Newer</span></a>
+    {{else}}
+        <span class="pagination__link is-disabled" aria-hidden="true">{{> "icons/arrow"}}<span>Newer</span></span>
+    {{/if}}
+
+    <span class="pagination__count">Page {{page}} of {{pages}}</span>
+
+    {{#if next}}
+        <a class="pagination__link pagination__link--next" href="{{page_url next}}"><span>Older</span>{{> "icons/arrow"}}</a>
+    {{else}}
+        <span class="pagination__link is-disabled" aria-hidden="true"><span>Older</span>{{> "icons/arrow"}}</span>
+    {{/if}}
+</nav>
+{{/if}}

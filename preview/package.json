@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "handlebars": "^4.7.9"
+  },
+  "devDependencies": {
+    "playwright": "^1.63.0"
+  }
+}

@@ -1,0 +1,16 @@
+{{!< default}}
+
+<div class="wrap">
+    <header class="page-head">
+        <p class="eyebrow">{{@custom.eyebrow}}</p>
+        <h1 class="page-head__title">{{@custom.section_label}}</h1>
+    </header>
+
+    <div class="grid">
+        {{#foreach posts}}
+            {{> post-card}}
+        {{/foreach}}
+    </div>
+
+    {{pagination}}
+</div>

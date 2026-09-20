@@ -1,0 +1,13 @@
+{
+    "name": "not-your-ai-overlords-static",
+    "private": true,
+    "version": "1.0.0",
+    "description": "Static render of the Not Your A.I. Overlords Ghost theme, for GitHub Pages.",
+    "scripts": {
+        "build": "node build.js",
+        "serve": "node build.js && cd ../site && python3 -m http.server 8080"
+    },
+    "dependencies": {
+        "handlebars": "^4.7.8"
+    }
+}

@@ -1,0 +1,32 @@
+<header class="site-header">
+    <div class="wrap site-header__inner">
+        <a class="wordmark" href="{{@site.url}}">
+            {{#if @site.logo}}
+                <img class="wordmark__logo" src="{{@site.logo}}" alt="{{@site.title}}">
+            {{else}}
+                {{@site.title}}
+            {{/if}}
+        </a>
+
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+            <span class="nav-toggle__bars" aria-hidden="true"></span>
+            <span class="u-visually-hidden">Menu</span>
+        </button>
+
+        <div class="site-nav" id="site-nav">
+            {{navigation}}
+            <div class="site-nav__actions">
+                <button class="icon-button" type="button" data-ghost-search aria-label="Search this site">
+                    {{> "icons/search"}}
+                </button>
+                {{#if @site.members_enabled}}
+                    {{#unless @member}}
+                        <a class="button button--ghost" href="#/portal/signup">Subscribe</a>
+                    {{else}}
+                        <a class="button button--ghost" href="#/portal/account">Account</a>
+                    {{/unless}}
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</header>

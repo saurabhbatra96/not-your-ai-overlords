@@ -1,0 +1,23 @@
+{{#if @site.members_enabled}}
+<section class="newsletter" aria-labelledby="newsletter-heading">
+    <div class="wrap newsletter__inner">
+        <div class="newsletter__copy">
+            <p class="eyebrow eyebrow--on-rust">{{@custom.newsletter_eyebrow}}</p>
+            <h2 class="newsletter__heading" id="newsletter-heading">{{@custom.newsletter_heading}}</h2>
+            <p class="newsletter__body">{{@custom.newsletter_body}}</p>
+        </div>
+
+        <form class="signup" data-members-form="signup">
+            <label class="signup__label" for="newsletter-email">Your email</label>
+            <div class="signup__field">
+                <input id="newsletter-email" class="signup__input" type="email" name="email"
+                       data-members-email placeholder="you@somewhere.com" required autocomplete="email">
+                <span class="signup__stitch" aria-hidden="true"></span>
+            </div>
+            <button class="button button--solid signup__button" type="submit">Receive the next note</button>
+            <p class="signup__message signup__message--success">Almost there — check your inbox for the confirmation link.</p>
+            <p class="signup__message signup__message--error">That didn't go through. Try again?</p>
+        </form>
+    </div>
+</section>
+{{/if}}

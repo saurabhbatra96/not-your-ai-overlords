@@ -1,0 +1,10 @@
+{{!< default}}
+
+<div class="wrap">
+    <section class="error">
+        <p class="eyebrow">{{error.statusCode}}</p>
+        <h1 class="error__title">{{error.message}}</h1>
+        <p class="error__body">The page you asked for isn't on the workbench. It may have been renamed, retired, or never existed.</p>
+        <a class="button button--solid" href="{{@site.url}}">Back to the field notes {{> "icons/arrow"}}</a>
+    </section>
+</div>

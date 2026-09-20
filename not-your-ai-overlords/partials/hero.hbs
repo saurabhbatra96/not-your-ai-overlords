@@ -1,0 +1,25 @@
+<header class="hero">
+    {{#if @custom.portrait}}
+        <div class="hero__portrait">
+            <img src="{{img_url @custom.portrait size="m"}}"
+                 srcset="{{img_url @custom.portrait size="s"}} 300w, {{img_url @custom.portrait size="m"}} 600w"
+                 sizes="(max-width: 700px) 45vw, 200px"
+                 alt="{{@site.title}}">
+        </div>
+    {{/if}}
+
+    <div class="hero__body">
+        {{#if @custom.eyebrow}}<p class="eyebrow">{{@custom.eyebrow}}</p>{{/if}}
+        <h1 class="hero__title">{{@site.title}}</h1>
+        {{#if @site.description}}<p class="hero__lede">{{@site.description}}</p>{{/if}}
+
+        {{#if @custom.byline_text}}
+            <p class="byline">
+                {{#if @custom.byline_mark}}
+                    <img class="byline__mark" src="{{img_url @custom.byline_mark size="xs"}}" alt="">
+                {{/if}}
+                <span>{{@custom.byline_text}}</span>
+            </p>
+        {{/if}}
+    </div>
+</header>
