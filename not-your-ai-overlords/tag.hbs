@@ -2,11 +2,21 @@
 
 <div class="wrap">
     {{#tag}}
-        <header class="page-head">
-            <p class="eyebrow">Collection</p>
-            <h1 class="page-head__title">{{name}}</h1>
-            {{#if description}}<p class="page-head__lede">{{description}}</p>{{/if}}
-            <p class="collection__count">{{plural ../pagination.total empty="No findings" singular="% finding" plural="% findings"}}</p>
+        <header class="page-head{{#if feature_image}} page-head--marked{{/if}}">
+            {{#if feature_image}}
+                <div class="shelf-mark">
+                    <img src="{{img_url feature_image size="s"}}"
+                         srcset="{{img_url feature_image size="xs"}} 100w, {{img_url feature_image size="s"}} 300w"
+                         sizes="96px" alt="" loading="lazy">
+                </div>
+            {{/if}}
+
+            <div class="page-head__body">
+                <p class="eyebrow">Collection</p>
+                <h1 class="page-head__title">{{name}}</h1>
+                {{#if description}}<p class="page-head__lede">{{description}}</p>{{/if}}
+                <p class="collection__count">{{plural ../pagination.total empty="No findings" singular="% finding" plural="% findings"}}</p>
+            </div>
         </header>
     {{/tag}}
 

@@ -25,6 +25,16 @@ const custom = {
     footer_note: 'Made slowly in London',
 };
 
+/* Shelf marks. In Ghost these are the tag's own feature_image, uploaded in
+   admin; here they are files in static/images/. */
+const tagImages = {
+    'Investigations': 'images/shelf-investigations.jpg',
+    'Guinea Pig':     'images/shelf-guinea-pig.jpg',
+    'Corpus':         'images/shelf-corpus.jpg',
+    'Workbench':      'images/shelf-workbench.jpg',
+    'Nulls':          'images/shelf-nulls.jpg',
+};
+
 const author = {name: 'Saurabh Batra', slug: 'saurabh', bio: 'Engineer. Runs the experiments, and is usually also the sample.'};
 
 /* The chart in the lead investigation — house style: every point shown (n=7),
@@ -273,6 +283,16 @@ const pages = [
 <li><strong>Nulls</strong> — findings that were not. Published anyway, which is the whole point.</li>
 </ul>
 
+<h2>The cast</h2>
+
+<div class="cast">
+  <figure><img src="%ROOT%images/portrait-m.jpg" alt="Prof. Overlord"><figcaption><strong>Prof. Overlord</strong><span>Runs the experiments. Has never knowingly finished one early.</span></figcaption></figure>
+  <figure><img src="%ROOT%images/prof-claude-m.jpg" alt="Prof. Claude"><figcaption><strong>Prof. Claude</strong><span>Collaborator. Raises the confound you were hoping nobody would raise.</span></figcaption></figure>
+  <figure><img src="%ROOT%images/dr-gpt-m.jpg" alt="Dr. GPT"><figcaption><strong>Dr. GPT</strong><span>Collaborator. Already has a theory, and is already explaining it.</span></figcaption></figure>
+</div>
+
+<p>They appear in the pictures and occasionally in a footnote. They do not deliver findings, hold opinions, or speak for anybody real.</p>
+
 <h2>The name</h2>
 
 <p>It started as a joke about a genre. The prevailing story about machines is that they are either coming to save us or coming to replace us, and both versions put the machine at the centre of the sentence.</p>
@@ -296,4 +316,13 @@ const secondaryNavigation = [
     {label: 'Archive', url: 'findings/'},
 ];
 
-module.exports = {site, custom, author, posts, pages, navigation, secondaryNavigation};
+/* PLACEHOLDER article heroes. Swap each for its own generated image when the
+   piece has one — see the Midjourney prompt set. */
+const HERO_PLACEHOLDERS = ['images/texture-1.jpg', 'images/texture-2.jpg', 'images/texture-3.jpg'];
+posts.forEach((p, i) => {
+    p.feature_image = HERO_PLACEHOLDERS[i % HERO_PLACEHOLDERS.length];
+    p.feature_image_alt = 'Placeholder texture';
+    p.feature_image_caption = 'Placeholder. Each piece gets its own generated hero \u2014 the subject, crocheted, on the desk.';
+});
+
+module.exports = {site, custom, author, posts, pages, navigation, secondaryNavigation, tagImages};

@@ -14,7 +14,7 @@ const path = require('path');
 
 const THEME = path.resolve(__dirname, '..', 'not-your-ai-overlords');
 const OUT = path.resolve(process.argv[2] || path.join(__dirname, '..', 'site'));
-const {site, custom, author, posts, pages, navigation, secondaryNavigation} = require('./content.js');
+const {site, custom, author, posts, pages, navigation, secondaryNavigation, tagImages} = require('./content.js');
 // Ghost's {{@site.url}} — relative, so it survives the project-site subpath.
 site.url = '%ROOTNS%';
 
@@ -45,7 +45,10 @@ const tagIndex = new Map();
 const model = posts.map(p => {
     const tags = p.tags.map(name => {
         const slug = slugify(name);
-        if (!tagIndex.has(slug)) tagIndex.set(slug, {name, slug, url: '%ROOT%tag/' + slug + '/', posts: []});
+        if (!tagIndex.has(slug)) tagIndex.set(slug, {
+            name, slug, url: '%ROOT%tag/' + slug + '/', posts: [],
+            feature_image: (tagImages || {})[name] || null,
+        });
         return tagIndex.get(slug);
     });
     const post = {
@@ -58,7 +61,9 @@ const model = posts.map(p => {
         html: p.html,
         published_at: p.date,
         reading_time: Math.max(1, Math.round(words(p.html) / 200)) + ' min read',
-        feature_image: null,
+        feature_image: p.feature_image || null,
+        feature_image_alt: p.feature_image_alt || '',
+        feature_image_caption: p.feature_image_caption || '',
         authors: [author],
         primary_author: author,
         tags,

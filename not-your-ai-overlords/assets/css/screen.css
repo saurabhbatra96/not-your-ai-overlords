@@ -488,6 +488,7 @@ button, input { font: inherit; color: inherit; }
 .page-head--author { display: flex; gap: clamp(20px, 3vw, 34px); align-items: center; flex-wrap: wrap; }
 .page-head__title { font-size: clamp(2.3rem, 5.4vw, 3.6rem); }
 .page-head__lede { max-width: 52ch; margin-top: 16px; color: var(--text-dim); }
+.page-head__body .collection__count { margin-top: 14px; }
 
 .post__header {
     max-width: var(--content);
@@ -520,7 +521,14 @@ button, input { font: inherit; color: inherit; }
     max-width: var(--wrap);
     padding-inline: var(--gutter);
 }
-.post__figure img { width: 100%; border-radius: var(--radius); }
+/* Heroes are generated at 3:2 and displayed at 16:9 here and on cards, so one
+   image crops predictably in both places. */
+.post__figure img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: var(--radius);
+}
 .post__figure figcaption {
     margin-top: 12px;
     font-size: 0.8rem;
@@ -822,4 +830,59 @@ button, input { font: inherit; color: inherit; }
     font-size: 0.8rem;
     line-height: 1.6;
     color: var(--text-dim);
+}
+
+/* Shelf marks ------------------------------------------------------------- */
+.page-head--marked {
+    display: flex;
+    gap: clamp(18px, 2.6vw, 30px);
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.shelf-mark {
+    flex: none;
+    width: clamp(72px, 9vw, 104px);
+    aspect-ratio: 1;
+    padding: 4px;
+    border: 2px solid var(--rust);
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+.shelf-mark img { width: 100%; height: 100%; object-fit: cover; border-radius: 2px; }
+
+/* The cast, on the About page --------------------------------------------- */
+.gh-content .cast {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(14px, 2vw, 22px);
+    margin-block: clamp(24px, 3vw, 34px);
+}
+.gh-content .cast figure { margin: 0; }
+.gh-content .cast img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: var(--radius);
+    border: 1px solid var(--ink-line);
+}
+.gh-content .cast figcaption {
+    margin-top: 10px;
+    text-align: left;
+    font-size: 0.82rem;
+    line-height: 1.45;
+}
+.gh-content .cast figcaption strong {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--rust);
+    margin-bottom: 3px;
+}
+.gh-content .cast figcaption span { color: var(--text-dim); }
+
+@media (max-width: 560px) {
+    .gh-content .cast { grid-template-columns: 1fr; gap: 18px; }
+    .gh-content .cast figure { display: grid; grid-template-columns: 96px 1fr; gap: 14px; align-items: center; }
+    .gh-content .cast figcaption { margin-top: 0; }
 }
