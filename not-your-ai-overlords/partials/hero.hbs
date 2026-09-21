@@ -4,6 +4,11 @@
             <img src="{{img_url @custom.portrait size="xl"}}"
                  srcset="{{img_url @custom.portrait size="m"}} 600w, {{img_url @custom.portrait size="l"}} 1000w, {{img_url @custom.portrait size="xl"}} 2000w"
                  sizes="100vw" alt="" fetchpriority="high">
+
+            {{!-- Grain belongs to the photograph: nested here so it tracks the
+                  image exactly at every breakpoint, and sits under the scrim
+                  so the headline keeps its contrast. --}}
+            <div class="hero__grain" aria-hidden="true"></div>
         </div>
     {{/if}}
 
