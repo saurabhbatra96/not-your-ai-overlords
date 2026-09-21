@@ -38,7 +38,7 @@ publishes `site/` to GitHub Pages.
   (`portrait-s.jpg`, `portrait-m.jpg`, …), so `{{img_url ... size="m"}}` and
   the `srcset`s resolve the way they do in Ghost. Needs ImageMagick locally;
   without it the build warns and serves the original unresized.
-- **Hero portrait** — `static/images/portrait.jpg`, set as `custom.portrait`
+- **Hero photograph** — `static/images/portrait.jpg`, set as `custom.portrait`. It now runs full-bleed behind the homepage headline, not in an arch
   in `static/content.js`. It is a 1200px copy of `ai overlord.JPG`; the 1620px
   original lives in the (gitignored) `inspiration-images/`. In Ghost this is a
   `portrait` theme setting, so upload the original there rather than shipping
@@ -55,6 +55,7 @@ The theme is written for Ghost, so a few things have no static equivalent:
 | Search | The button renders but does nothing |
 | Comments | Hidden |
 | `{{#get}}` related posts | Same primary tag first, then most recent |
+| Tag pages | Built, but unlinked — shelves are internal by design |
 
 `assets/js/static-preview.js` is generated at build time and is **not** part of
 the theme.

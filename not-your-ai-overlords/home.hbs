@@ -1,28 +1,17 @@
 {{!< default}}
 
+{{> hero}}
+
 <div class="wrap">
-    {{> hero}}
+    <div class="entries">
+        {{#foreach posts limit="3"}}
+            {{> post-entry}}
+        {{/foreach}}
+    </div>
 
-    {{#foreach posts limit="1"}}
-        {{> lead-post}}
-    {{/foreach}}
-
-    {{#if posts.[1]}}
-        <section class="collection" aria-labelledby="collection-heading">
-            <div class="collection__head">
-                <h2 class="collection__title" id="collection-heading">{{@custom.section_label}}</h2>
-                <p class="collection__count">
-                    {{plural pagination.total empty="No findings" singular="% finding" plural="% findings"}} / {{date format="MMMM YYYY"}}
-                </p>
-            </div>
-
-            <div class="grid">
-                {{#foreach posts from="2"}}
-                    {{> post-card}}
-                {{/foreach}}
-            </div>
-        </section>
-    {{/if}}
-
-    {{pagination}}
+    <p class="entries__more">
+        <a class="link-arrow" href="{{@site.url}}/findings/">Everything in the archive {{> "icons/arrow"}}</a>
+    </p>
 </div>
+
+{{> bureau}}

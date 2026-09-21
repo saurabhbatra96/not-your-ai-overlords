@@ -1,25 +1,32 @@
 <header class="hero">
     {{#if @custom.portrait}}
-        <div class="hero__portrait">
-            <img src="{{img_url @custom.portrait size="m"}}"
-                 srcset="{{img_url @custom.portrait size="s"}} 300w, {{img_url @custom.portrait size="m"}} 600w"
-                 sizes="(max-width: 700px) 45vw, 200px"
-                 alt="{{@site.title}}">
+        <div class="hero__media">
+            <img src="{{img_url @custom.portrait size="xl"}}"
+                 srcset="{{img_url @custom.portrait size="m"}} 600w, {{img_url @custom.portrait size="l"}} 1000w, {{img_url @custom.portrait size="xl"}} 2000w"
+                 sizes="100vw" alt="" fetchpriority="high">
         </div>
     {{/if}}
 
-    <div class="hero__body">
-        {{#if @custom.eyebrow}}<p class="eyebrow">{{@custom.eyebrow}}</p>{{/if}}
-        <h1 class="hero__title">{{@site.title}}</h1>
-        {{#if @site.description}}<p class="hero__lede">{{@site.description}}</p>{{/if}}
+    <div class="hero__scrim" aria-hidden="true"></div>
 
-        {{#if @custom.byline_text}}
-            <p class="byline">
-                {{#if @custom.byline_mark}}
-                    <img class="byline__mark" src="{{img_url @custom.byline_mark size="xs"}}" alt="">
-                {{/if}}
-                <span>{{@custom.byline_text}}</span>
-            </p>
+    <div class="wrap hero__inner">
+        {{#if posts.[0]}}
+            <p class="kicker kicker--on-photo">Latest finding — out now</p>
         {{/if}}
+
+        <h1 class="hero__line">
+            {{@custom.hero_line_start}} <em>{{@custom.hero_line_italic}}</em> {{@custom.hero_line_end}}
+        </h1>
+
+        {{#if @site.description}}
+            <p class="hero__blurb">{{@site.description}}</p>
+        {{/if}}
+
+        <div class="hero__actions">
+            {{#foreach posts limit="1"}}
+                <a class="button button--solid" href="{{url}}">{{@custom.hero_cta}}</a>
+            {{/foreach}}
+            <a class="button button--outline" href="{{@site.url}}/findings/">The archive</a>
+        </div>
     </div>
 </header>

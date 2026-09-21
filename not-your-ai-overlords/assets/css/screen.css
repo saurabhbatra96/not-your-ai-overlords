@@ -112,10 +112,11 @@ button, input { font: inherit; color: inherit; }
 .skip-link:focus { transform: translate(-50%, 0); }
 
 /* The small letterspaced caps that label everything in this design. */
-.eyebrow {
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.15em;
+.eyebrow, .kicker {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.13em;
     text-transform: uppercase;
     color: var(--rust);
     margin: 0 0 clamp(14px, 2vw, 22px);
@@ -123,6 +124,9 @@ button, input { font: inherit; color: inherit; }
 .eyebrow__link { text-decoration: none; }
 .eyebrow__link:hover { text-decoration: underline; text-underline-offset: 3px; }
 .eyebrow--on-rust { color: rgba(255, 246, 236, 0.85); }
+.kicker { margin: 0 0 6px; }
+/* Cream, not rust: rust over the photograph measures 1.08:1. */
+.kicker--on-photo { color: var(--cream); }
 
 /* --- 4. Buttons --------------------------------------------------------- */
 
@@ -141,6 +145,12 @@ button, input { font: inherit; color: inherit; }
 }
 .button--solid { background: var(--rust-deep); color: var(--cream-soft); }
 .button--solid:hover { background: #93441f; }
+.button--outline {
+    border: 1px solid rgba(236, 227, 214, 0.45);
+    color: var(--text);
+}
+.button--outline:hover { border-color: var(--cream); background: rgba(236, 227, 214, 0.08); }
+
 .button--ghost {
     background: transparent;
     color: var(--text);
@@ -242,214 +252,208 @@ button, input { font: inherit; color: inherit; }
     .nav__link { font-size: 1rem; }
 }
 
-/* --- 6. Hero ------------------------------------------------------------ */
+/* --- 6. Hero (full-bleed cover) ------------------------------------------ */
 
 .hero {
-    display: grid;
-    gap: clamp(22px, 3.4vw, 44px);
-    align-items: center;
-    padding-block: clamp(34px, 5.5vw, 68px);
-}
-
-@media (min-width: 700px) {
-    .hero { grid-template-columns: auto 1fr; }
-}
-
-/* The arch: a full half-round on top, squared off at the base. */
-.hero__portrait {
-    width: clamp(128px, 17vw, 188px);
-    aspect-ratio: 4 / 5;
-    padding: 5px;
-    border: 3px solid var(--rust);
-    border-radius: 50% 50% var(--radius) var(--radius) / 42% 42% var(--radius) var(--radius);
+    position: relative;
+    isolation: isolate;
+    min-height: clamp(520px, 80vh, 780px);
+    display: flex;
+    align-items: flex-end;
     overflow: hidden;
 }
-.hero__portrait img { width: 100%; height: 100%; object-fit: cover; border-radius: inherit; }
-.hero__portrait--small { width: clamp(96px, 12vw, 128px); }
 
-.hero__title {
-    font-size: clamp(2.9rem, 7.2vw, 5.1rem);
-    margin-bottom: clamp(14px, 2vw, 22px);
+.hero__media { position: absolute; inset: 0; z-index: -2; }
+.hero__media img { width: 100%; height: 100%; object-fit: cover; object-position: 64% 30%; }
+
+/* Text sits lower-left, where the photograph is already dark; the scrim
+   carries the rest. Contrast is measured against the real image, not assumed. */
+.hero__scrim {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+        linear-gradient(to top,
+            rgba(23, 18, 15, 0.97) 0%,
+            rgba(23, 18, 15, 0.92) 34%,
+            rgba(23, 18, 15, 0.62) 64%,
+            rgba(23, 18, 15, 0.22) 100%),
+        linear-gradient(to right,
+            rgba(23, 18, 15, 0.90) 0%,
+            rgba(23, 18, 15, 0.58) 42%,
+            rgba(23, 18, 15, 0.00) 72%);
 }
 
-.hero__lede {
+.hero__inner { position: relative; padding-block: clamp(50px, 9vw, 104px); }
+
+.hero__line {
+    max-width: 15ch;
+    margin-block: 10px 0;
+    font-size: clamp(2.7rem, 6.8vw, 5.2rem);
+    line-height: 1.03;
+    letter-spacing: -0.015em;
+}
+.hero__line em { font-style: italic; }
+
+.hero__blurb {
     max-width: 46ch;
-    color: var(--text-dim);
+    margin-top: clamp(16px, 2vw, 24px);
     font-size: clamp(1rem, 1.3vw, 1.08rem);
     line-height: 1.6;
+    color: rgba(236, 227, 214, 0.88);
 }
 
-.byline {
+.hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: clamp(22px, 3vw, 34px);
+}
+
+/* The nav rides on the photograph, so the homepage header leaves the flow. */
+.home-template .site-header {
+    position: absolute;
+    inset-inline: 0;
+    top: 0;
+    z-index: 3;
+    border-bottom: none;
+    background: linear-gradient(to bottom, rgba(23, 18, 15, 0.6), rgba(23, 18, 15, 0));
+}
+.home-template .site-header:has(.site-nav.is-open) { background: var(--ink); }
+
+/* On a phone the photograph crops to his face and the type stacks beneath it. */
+@media (max-width: 700px) {
+    .hero { display: block; min-height: 0; }
+    .hero__media { position: relative; inset: auto; z-index: auto; height: 62vw; max-height: 420px; }
+    .hero__media img { object-position: 58% 18%; }
+    .hero__scrim { display: none; }
+    .hero__inner { padding-block: clamp(22px, 5vw, 30px) clamp(30px, 8vw, 44px); }
+    .hero__line { max-width: none; }
+    .home-template .site-header { position: static; background: none; }
+}
+
+/* --- 7. Entries --------------------------------------------------------- */
+
+.entries { max-width: 800px; padding-block: clamp(46px, 7vw, 88px) 0; }
+
+.entry { padding-block: clamp(26px, 3.4vw, 40px); border-top: 1px solid var(--ink-line); }
+.entry:first-child { border-top: none; padding-top: 0; }
+
+.entry__title {
+    font-size: clamp(1.5rem, 2.9vw, 2.15rem);
+    line-height: 1.14;
+    letter-spacing: -0.01em;
+}
+.entry__title a { text-decoration: none; }
+.entry__title a:hover { color: var(--rust); }
+
+.entry__method {
+    margin-top: 12px;
+    font-family: var(--font-mono);
+    font-size: 0.88rem;
+    letter-spacing: -0.01em;
+    color: var(--rust);
+}
+
+.entry__excerpt {
+    max-width: 62ch;
+    margin-top: 12px;
+    line-height: 1.62;
+    color: var(--text-dim);
+}
+
+.entry__meta {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: 16px;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #7e7167;
+}
+
+.entries__more { padding-block: clamp(26px, 3vw, 38px) 0; }
+
+.link-arrow {
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    margin-top: clamp(18px, 2.4vw, 26px);
-    padding: 7px 14px 7px 10px;
-    background: var(--ink-raised);
-    border: 1px solid var(--ink-line);
-    border-radius: var(--radius);
-    font-size: 0.84rem;
-    color: var(--text-dim);
-}
-.byline__mark { height: 15px; width: auto; }
-
-/* --- 7. Lead panel ------------------------------------------------------ */
-
-.lead {
-    background: var(--cream);
-    color: var(--paper-ink);
-    padding: clamp(26px, 4.4vw, 56px);
-    border-radius: 2px;
-}
-
-.lead__meta {
-    display: flex;
-    align-items: baseline;
-    gap: 7px;
-    padding-bottom: 14px;
-    border-bottom: 1px solid rgba(23, 18, 15, 0.16);
-    margin-bottom: clamp(20px, 2.8vw, 32px);
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--rust-deep);
-}
-.lead__index::before {
-    counter-increment: note;
-    content: counter(note, decimal-leading-zero) ' /';
-}
-.lead__time {
-    margin-left: auto;
-    letter-spacing: 0.08em;
-    text-transform: none;
-    font-weight: 500;
-    color: var(--paper-dim);
-}
-
-.lead__title {
-    font-size: clamp(2.1rem, 4.8vw, 3.5rem);
-    margin-bottom: clamp(16px, 2.2vw, 24px);
-}
-.lead__title a { text-decoration: none; }
-.lead__title a:hover { color: var(--rust-deep); }
-
-.lead__excerpt {
-    max-width: 60ch;
-    color: var(--paper-dim);
-    margin-bottom: clamp(22px, 3vw, 32px);
     font-family: var(--font-mono);
-    font-size: 0.92rem;
-    letter-spacing: -0.01em;
-    line-height: 1.65;
-}
-
-/* --- 8. Collections and cards ------------------------------------------- */
-
-.collection { padding-block: var(--step) 0; }
-
-.collection__head {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 20px;
-    flex-wrap: wrap;
-    padding-bottom: 16px;
-    border-bottom: 1px solid var(--ink-line);
-    margin-bottom: clamp(22px, 3vw, 34px);
-}
-
-.collection__title { font-size: clamp(1.75rem, 3.2vw, 2.5rem); }
-
-.collection__count {
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--blue);
-}
-.collection__count a { color: inherit; }
-
-.grid {
-    display: grid;
-    gap: clamp(14px, 1.8vw, 22px);
-    grid-template-columns: 1fr;
-}
-@media (min-width: 620px)  { .grid { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 900px)  { .grid { grid-template-columns: repeat(3, 1fr); } }
-
-.card {
-    display: flex;
-    flex-direction: column;
-    min-height: 220px;
-    padding: clamp(18px, 2vw, 24px);
-    border-radius: var(--radius);
-    background: var(--ink-raised);
-    border: 1px solid var(--ink-line);
-    transition: transform 0.2s ease;
-}
-.card:hover { transform: translateY(-2px); }
-
-/* Three fills in rotation, exactly as laid out in the design. */
-.card:nth-child(3n+2) {
-    background: var(--blue);
-    border-color: transparent;
-    color: var(--paper-ink);
-}
-.card:nth-child(3n+3) {
-    background: var(--rust-deep);
-    border-color: transparent;
-    color: var(--cream-soft);
-}
-
-.card__media { margin: calc(-1 * clamp(18px, 2vw, 24px)) calc(-1 * clamp(18px, 2vw, 24px)) 18px; }
-.card__media img {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
-    border-radius: var(--radius) var(--radius) 0 0;
-}
-
-.card__meta {
-    display: flex;
-    align-items: baseline;
-    gap: 7px;
-    margin-bottom: 14px;
-    font-size: 0.66rem;
-    font-weight: 600;
-    letter-spacing: 0.15em;
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--rust);
+    text-decoration: none;
 }
-.card__index::before {
-    counter-increment: note;
-    content: counter(note, decimal-leading-zero) ' /';
+.link-arrow .arrow { width: 22px; height: 12px; transition: transform 0.18s ease; }
+.link-arrow:hover { color: var(--cream); }
+.link-arrow:hover .arrow { transform: translateX(4px); }
+
+/* --- 8. The bureau ------------------------------------------------------ */
+
+.bureau {
+    position: relative;
+    isolation: isolate;
+    margin-top: clamp(54px, 8vw, 104px);
+    padding-block: clamp(44px, 6vw, 84px);
+    border-top: 1px solid var(--ink-line);
+    background: var(--ink-raised);
 }
-.card:nth-child(3n+2) .card__meta { color: #2c3a42; }
-.card:nth-child(3n+3) .card__meta { color: rgba(255, 246, 236, 0.82); }
 
-.card__title { font-size: clamp(1.3rem, 2.1vw, 1.6rem); margin-bottom: 12px; }
-.card__link { text-decoration: none; }
-/* Whole card is the hit area; the anchor keeps the accessible name. */
-.card__link::after { content: ''; position: absolute; inset: 0; }
-.card { position: relative; }
-.card__link:hover { text-decoration: underline; text-underline-offset: 3px; }
+/* Ambient wool: dark enough to read as texture, not as a photograph of wool. */
+.bureau::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: url('../img/wool.jpg') center / cover no-repeat;
+    opacity: 0.07;
+    filter: grayscale(1) blur(1px);
+    pointer-events: none;
+}
 
-.card__excerpt { font-size: 0.92rem; line-height: 1.55; color: var(--text-dim); }
-.card:nth-child(3n+2) .card__excerpt { color: #2c3a42; }
-.card:nth-child(3n+3) .card__excerpt { color: rgba(255, 246, 236, 0.88); }
-
-.card__footer {
+.bureau__head {
     display: flex;
-    gap: 7px;
-    margin-top: auto;
-    padding-top: 22px;
-    font-size: 0.72rem;
-    color: var(--text-dim);
-    opacity: 0.75;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: clamp(24px, 3vw, 38px);
 }
-.card:nth-child(3n+2) .card__footer { color: #2c3a42; }
-.card:nth-child(3n+3) .card__footer { color: var(--cream-soft); }
+.bureau__title { font-size: clamp(1.7rem, 3.2vw, 2.4rem); }
+.bureau__note { margin: 0; color: var(--text-dim); }
+
+.bureau__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(14px, 2vw, 26px);
+    list-style: none;
+}
+
+.member__portrait {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border: 1px solid var(--ink-line);
+    border-radius: var(--radius);
+}
+.member__name {
+    margin-top: 14px;
+    font-family: var(--font-display);
+    font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+}
+.member__role { margin: 5px 0 0; }
+
+/* Two up, never one: four full-width portraits is a page of scrolling. */
+@media (max-width: 820px) { .bureau__grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 420px) {
+    .bureau__grid { gap: 12px 10px; }
+    .member__name { font-size: 1rem; }
+    .member__role { font-size: 0.62rem; letter-spacing: 0.08em; }
+}
+
 
 /* --- 9. Pagination ------------------------------------------------------ */
 
@@ -667,9 +671,21 @@ button, input { font: inherit; color: inherit; }
 /* --- 12. Newsletter ----------------------------------------------------- */
 
 .newsletter {
+    position: relative;
+    isolation: isolate;
     background: var(--rust-deep);
     color: var(--cream-soft);
     margin-top: var(--step);
+}
+.newsletter::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: url('../img/wool.jpg') center / cover no-repeat;
+    opacity: 0.06;
+    filter: grayscale(1);
+    pointer-events: none;
 }
 
 .newsletter__inner {
@@ -886,3 +902,11 @@ button, input { font: inherit; color: inherit; }
     .gh-content .cast figure { display: grid; grid-template-columns: 96px 1fr; gap: 14px; align-items: center; }
     .gh-content .cast figcaption { margin-top: 0; }
 }
+
+/* Related entries at the foot of an article sit tighter than the homepage. */
+.entries--related { padding-top: clamp(20px, 2.5vw, 28px); max-width: none; }
+.entries--related .entry__excerpt { display: none; }
+.entries--related .entry__title { font-size: clamp(1.25rem, 2vw, 1.5rem); }
+
+/* The bureau already closes the homepage; the band below it needs no gap. */
+.home-template .newsletter { margin-top: 0; }

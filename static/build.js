@@ -39,6 +39,16 @@ const read = f => fs.readFileSync(path.join(THEME, f), 'utf8');
 
 // --- model ----------------------------------------------------------------
 const slugify = s => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+/* {{excerpt}} takes the opening of the body, as Ghost does when a post has no
+   custom excerpt; {{custom_excerpt}} is the method line. Figures are stripped
+   so a chart's labels can never leak into an entry. */
+const bodyOpening = html => html
+    .replace(/<figure[\s\S]*?<\/figure>/gi, ' ')
+    .replace(/<pre[\s\S]*?<\/pre>/gi, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
 const words = html => html.replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length;
 
 const tagIndex = new Map();
@@ -56,7 +66,7 @@ const model = posts.map(p => {
         title: p.title,
         slug: p.slug,
         url: '%ROOT%findings/' + p.slug + '/',
-        excerpt: p.excerpt,
+        excerpt: bodyOpening(p.html),
         custom_excerpt: p.excerpt,
         html: p.html,
         published_at: p.date,

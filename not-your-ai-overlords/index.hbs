@@ -2,13 +2,13 @@
 
 <div class="wrap">
     <header class="page-head">
-        <p class="eyebrow">{{@custom.eyebrow}}</p>
-        <h1 class="page-head__title">{{@custom.section_label}}</h1>
+        <h1 class="page-head__title">The archive</h1>
+        <p class="page-head__lede">{{plural pagination.total empty="Nothing yet" singular="% finding" plural="% findings"}}, newest first.</p>
     </header>
 
-    <div class="grid">
+    <div class="entries">
         {{#foreach posts}}
-            {{> post-card}}
+            {{> post-entry}}
         {{/foreach}}
     </div>
 

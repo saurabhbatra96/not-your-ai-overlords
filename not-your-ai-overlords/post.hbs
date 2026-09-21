@@ -70,9 +70,9 @@
                         <h2 class="collection__title" id="related-heading">Keep reading</h2>
                         <p class="collection__count">More from {{post.primary_tag.name}}</p>
                     </div>
-                    <div class="grid">
+                    <div class="entries entries--related">
                         {{#foreach related}}
-                            {{> post-card}}
+                            {{> post-entry}}
                         {{/foreach}}
                     </div>
                 </section>
@@ -87,9 +87,9 @@
                     <div class="collection__head">
                         <h2 class="collection__title" id="related-heading">Keep reading</h2>
                     </div>
-                    <div class="grid">
+                    <div class="entries entries--related">
                         {{#foreach related}}
-                            {{> post-card}}
+                            {{> post-entry}}
                         {{/foreach}}
                     </div>
                 </section>

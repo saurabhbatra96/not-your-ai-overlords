@@ -1,0 +1,15 @@
+<article class="entry">
+    <h3 class="entry__title"><a href="{{url}}">{{title}}</a></h3>
+
+    {{#if custom_excerpt}}
+        <p class="entry__method">{{custom_excerpt}}</p>
+    {{/if}}
+
+    <p class="entry__excerpt">{{excerpt words="32"}}</p>
+
+    <p class="entry__meta">
+        <time datetime="{{date format="YYYY-MM-DD"}}">{{date format="D MMM YYYY"}}</time>
+        <span aria-hidden="true">·</span>
+        <span>{{reading_time}}</span>
+    </p>
+</article>

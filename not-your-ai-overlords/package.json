@@ -1,6 +1,6 @@
 {
     "name": "not-your-ai-overlords",
-    "description": "Field notes on making systems feel human \u2014 a warm, high-contrast editorial theme for Ghost.",
+    "description": "Field notes on making systems feel human — a warm, high-contrast editorial theme for Ghost.",
     "demo": "https://notyouraioverlords.com",
     "version": "1.0.0",
     "engines": {
@@ -42,37 +42,64 @@
         },
         "card_assets": true,
         "custom": {
-            "eyebrow": {
-                "type": "text",
-                "default": "Field notes on making systems feel human",
-                "group": "homepage"
-            },
             "portrait": {
                 "type": "image",
                 "group": "homepage"
             },
-            "byline_mark": {
+            "hero_line_start": {
+                "type": "text",
+                "default": "We are",
+                "group": "homepage"
+            },
+            "hero_line_italic": {
+                "type": "text",
+                "default": "not",
+                "group": "homepage"
+            },
+            "hero_line_end": {
+                "type": "text",
+                "default": "your A.I. overlords.",
+                "group": "homepage"
+            },
+            "hero_cta": {
+                "type": "text",
+                "default": "Read the latest finding",
+                "group": "homepage"
+            },
+            "bureau_1_image": {
                 "type": "image",
                 "group": "homepage"
             },
-            "byline_text": {
+            "bureau_1_role": {
                 "type": "text",
-                "default": "Saurabh Batra \u00b7 Engineer / maker",
+                "default": "Principal investigator, mostly of himself",
                 "group": "homepage"
             },
-            "lead_label": {
-                "type": "text",
-                "default": "The lead experiment",
+            "bureau_2_image": {
+                "type": "image",
                 "group": "homepage"
             },
-            "section_label": {
+            "bureau_2_role": {
                 "type": "text",
-                "default": "Recent experiments",
+                "default": "Dept. of second opinions",
                 "group": "homepage"
             },
-            "show_card_images": {
-                "type": "boolean",
-                "default": false,
+            "bureau_3_image": {
+                "type": "image",
+                "group": "homepage"
+            },
+            "bureau_3_role": {
+                "type": "text",
+                "default": "Chair of confident wrongness",
+                "group": "homepage"
+            },
+            "bureau_4_image": {
+                "type": "image",
+                "group": "homepage"
+            },
+            "bureau_4_role": {
+                "type": "text",
+                "default": "Provides the compute",
                 "group": "homepage"
             },
             "newsletter_eyebrow": {
@@ -81,11 +108,11 @@
             },
             "newsletter_heading": {
                 "type": "text",
-                "default": "A note from the workbench."
+                "default": "One finding a month, at most."
             },
             "newsletter_body": {
                 "type": "text",
-                "default": "No growth loops. Just an occasional bundle of observations, diagrams, and unfinished thoughts."
+                "default": "No growth loops. Just an occasional bundle of observations, charts, and things that turned out not to be true."
             },
             "footer_note": {
                 "type": "text",

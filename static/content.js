@@ -5,20 +5,29 @@
 
 const site = {
     title: 'Not Your A.I. Overlords',
-    description: 'Deeply serious investigations of questions that do not matter.',
+    description: 'Deeply serious investigations of questions that do not matter \u2014 filed by a research bureau made entirely of yarn.',
     locale: 'en',
     logo: null,
     members_enabled: true,
 };
 
 const custom = {
-    eyebrow: 'Rigorous answers to questions nobody asked',
     portrait: 'images/portrait.jpg',
-    byline_mark: null,
-    byline_text: 'Saurabh Batra · Engineer, occasional test subject',
-    lead_label: 'The current investigation',
-    section_label: 'Recent findings',
-    show_card_images: false,
+
+    hero_line_start: 'We are',
+    hero_line_italic: 'not',
+    hero_line_end: 'your A.I. overlords.',
+    hero_cta: 'Read the latest finding',
+
+    bureau_1_image: 'images/portrait.jpg',
+    bureau_1_role: 'Principal investigator, mostly of himself',
+    bureau_2_image: 'images/prof-claude.jpg',
+    bureau_2_role: 'Dept. of second opinions',
+    bureau_3_image: 'images/dr-gpt.jpg',
+    bureau_3_role: 'Chair of confident wrongness',
+    bureau_4_image: 'images/shelf-guinea-pig.jpg',
+    bureau_4_role: 'Provides the compute',
+
     newsletter_eyebrow: 'Correspondence / once a month',
     newsletter_heading: 'One finding a month, at most.',
     newsletter_body: 'No growth loops. Just an occasional bundle of observations, charts, and things that turned out not to be true.',
@@ -283,15 +292,11 @@ const pages = [
 <li><strong>Nulls</strong> — findings that were not. Published anyway, which is the whole point.</li>
 </ul>
 
-<h2>The cast</h2>
+<h2>The bureau</h2>
 
-<div class="cast">
-  <figure><img src="%ROOT%images/portrait-m.jpg" alt="Prof. Overlord"><figcaption><strong>Prof. Overlord</strong><span>Runs the experiments. Has never knowingly finished one early.</span></figcaption></figure>
-  <figure><img src="%ROOT%images/prof-claude-m.jpg" alt="Prof. Claude"><figcaption><strong>Prof. Claude</strong><span>Collaborator. Raises the confound you were hoping nobody would raise.</span></figcaption></figure>
-  <figure><img src="%ROOT%images/dr-gpt-m.jpg" alt="Dr. GPT"><figcaption><strong>Dr. GPT</strong><span>Collaborator. Already has a theory, and is already explaining it.</span></figcaption></figure>
-</div>
+<p>Prof. Overlord runs the experiments. Prof. Claude and Dr. GPT collaborate, in the sense that they disagree with him and with each other. The Intern provides the compute.</p>
 
-<p>They appear in the pictures and occasionally in a footnote. They do not deliver findings, hold opinions, or speak for anybody real.</p>
+<p>They are introduced properly at the foot of the front page. They appear in the pictures and occasionally in a footnote, and they do not deliver findings, hold opinions, or speak for anybody real.</p>
 
 <h2>The name</h2>
 
@@ -308,7 +313,7 @@ const pages = [
 ];
 
 const navigation = [
-    {label: 'Findings', url: 'findings/'},
+    {label: 'Archive', url: 'findings/'},
     {label: 'About', url: 'about/'},
 ];
 
@@ -316,13 +321,21 @@ const secondaryNavigation = [
     {label: 'Archive', url: 'findings/'},
 ];
 
-/* PLACEHOLDER article heroes. Swap each for its own generated image when the
-   piece has one — see the Midjourney prompt set. */
-const HERO_PLACEHOLDERS = ['images/texture-1.jpg', 'images/texture-2.jpg', 'images/texture-3.jpg'];
-posts.forEach((p, i) => {
-    p.feature_image = HERO_PLACEHOLDERS[i % HERO_PLACEHOLDERS.length];
-    p.feature_image_alt = 'Placeholder texture';
-    p.feature_image_caption = 'Placeholder. Each piece gets its own generated hero \u2014 the subject, crocheted, on the desk.';
+/* Interim article heroes: the crocheted objects left over once shelves went
+   internal. One piece deliberately has none \u2014 an empty hero reads as
+   "not made yet", which is true. Swap each for its own generated image. */
+const INTERIM_HEROES = {
+    'seven-books-about-indecisiveness': 'images/shelf-corpus.jpg',
+    'every-productivity-book-wake-up-earlier': 'images/shelf-investigations.jpg',
+    'logging-treadmill-sessions-without-an-api': 'images/shelf-workbench.jpg',
+    'tabs-open-predicts-nothing': 'images/shelf-nulls.jpg',
+};
+posts.forEach(p => {
+    const hero = INTERIM_HEROES[p.slug];
+    if (!hero) return;
+    p.feature_image = hero;
+    p.feature_image_alt = '';
+    p.feature_image_caption = 'Stand-in. Each piece gets its own generated hero \u2014 the subject, crocheted, on the desk.';
 });
 
 module.exports = {site, custom, author, posts, pages, navigation, secondaryNavigation, tagImages};
