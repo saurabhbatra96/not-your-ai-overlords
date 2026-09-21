@@ -9,8 +9,16 @@ GitHub Pages.
   `.hbs` templates, stands in for the Ghost database with the content in
   `static/content.js`, and writes plain HTML to `site/`. **It never modifies
   the theme.**
-- **`preview/`** — an older screenshot harness for checking layout at three
-  breakpoints.
+- **`preview/`** — a screenshot harness for checking layout at three
+  breakpoints, plus `contrast-check.js`, which measures the hero text against
+  the photograph beneath it. The house style requires that contrast to be
+  measured rather than assumed — run it after changing the hero image, the
+  scrim, or the headline colour:
+
+  ```bash
+  cd preview && npm install
+  CHROME_PATH=<chromium> node contrast-check.js
+  ```
 
 ## Build the static site
 
